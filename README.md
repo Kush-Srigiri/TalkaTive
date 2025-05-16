@@ -6,7 +6,7 @@
 - Say the correct word or match the tone to pass barriers.
 - Face walls that only open with your voice.
 - Switch between fun game modes like **"Color Game"**, **"Food Game"** and **"Animal Game"**.
-- 
+
 ### 🌟 Features
 - Real-time voice recognition
 - Multiple game modes
