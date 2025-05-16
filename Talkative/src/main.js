@@ -1,37 +1,36 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import Phaser from 'phaser';
+import { startSpeechRecognition } from './speech';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+let currentWord = 'blue';
 
-setupCounter(document.querySelector('#counter'))
-
-const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-recognition.lang = 'en-US';
-recognition.continuous = false;
-
-recognition.onresult = (event) => {
-  const spokenWord = event.results[0][0].transcript.toLowerCase();
-  console.log("You said:", spokenWord);
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  scene: {
+    preload,
+    create,
+    update
+  }
 };
 
-document.body.onclick = () => {
-  recognition.start();
-};
+let wall;
+
+function preload() {
+  this.load.image('wall', '/wall.png'); // Pfad anpassen!
+}
+
+function create() {
+  wall = this.add.image(400, -200, 'wall');
+  startSpeechRecognition((word) => {
+    if (word.includes(currentWord)) {
+      wall.y = -200; // Wand zurücksetzen
+    }
+  });
+}
+
+function update() {
+  wall.y += 1.5;
+}
+
+new Phaser.Game(config);
