@@ -2,14 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets\icons\icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> TalkaTive </title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="start-screen">
+    <h1 class="title">TalkaTive</h1>
+    <div class="menu">
+      <button onclick="location.href='screens/play'">Play</button>
+      <button onclick="location.href='screens/gameplay.html'">Gameplay</button>
+      <button onclick="location.href='screens/settings.html'">Settings</button>
+      <button onclick="location.href='screens/privacy.html'">Privacy & Policy</button>
+      <button class="exit">Exit</button>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+</body>
 </html>
-
-// BackgrondColor 1B83B7
