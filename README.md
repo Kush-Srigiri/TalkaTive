@@ -16,7 +16,7 @@
 ### 👨‍💻 Built by
 
 Kush Srigiri & Alessio Huber  
-BMSD23 School Project
+BMSD23ab Module M306
 
 <a href="https://github.com/kush-srigiri/pss/graphs/contributors">
   <img src="https://contrib.rocks/image?&columns=25&max=10000&&repo=kush-srigiri/talkative" />
