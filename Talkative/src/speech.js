@@ -17,3 +17,5 @@ export function startSpeechRecognition(callback) {
 
   recognition.start();
 }
+
+
