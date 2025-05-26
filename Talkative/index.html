@@ -1,23 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="assets\icons\icon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> TalkaTive </title>
-  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TalkaTive</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
+<nav class="navbar">
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="play.html">Play</a></li>
+    <li><a href="gameplay.html">Gameplay</a></li>
+    <li><a href="settings.html">Settings</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+</nav>
 <body>
-  <div class="start-screen">
-    <h1 class="title">TalkaTive</h1>
-    <div class="menu">
-      <button onclick="location.href='screens/play'">Play</button>
-      <button onclick="location.href='screens/gameplay.html'">Gameplay</button>
-      <button onclick="location.href='screens/settings.html'">Settings</button>
-      <button onclick="location.href='screens/privacy.html'">Privacy & Policy</button>
-      <button class="exit">Exit</button>
+  <div class="container">
+    <h1>TalkaTive</h1>
+    <div id="game-area">
+      <img id="player" src="public/images/player.png" alt="Player" />
+      <img id="wall" src="public/images/wall-default.png" alt="Wall" />
     </div>
+    <div class="controls">
+      <button id="mode-colors">Colors</button>
+      <button id="mode-animals">Animals</button>
+      <button id="mode-food">Food</button>
+      <button id="start-btn">Start Game</button>
+    </div>
+    <div id="timer">Time: 0s</div>
   </div>
-  <script src="js/app.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
+
+

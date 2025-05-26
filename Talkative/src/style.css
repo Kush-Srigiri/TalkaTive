@@ -75,3 +75,31 @@ body {
   top: 10px;
   right: 10px;
 }
+
+.navbar {
+  background-color: #4f46e5;
+  padding: 10px 0;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
