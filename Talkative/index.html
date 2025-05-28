@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TalkaTive</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="src/styles/style.css"/>
 </head>
 <nav class="navbar">
   <ul>
@@ -19,10 +19,10 @@
   <div class="container">
     <h1>TalkaTive</h1>
     <div id="game-area">
-      <img id="player" src="public/images/player.png" alt="Player" />
-      <img id="wall" src="public/images/wall-default.png" alt="Wall" />
+      <img id="player" src="src/images/red.png" alt="Player" />
+      <img id="wall" src="src/images/wall.png" alt="Wall" />
     </div>
-    <div class="controls">
+    <div class="gamemode-buttons"></div>
       <button id="mode-colors">Colors</button>
       <button id="mode-animals">Animals</button>
       <button id="mode-food">Food</button>
@@ -30,7 +30,7 @@
     </div>
     <div id="timer">Time: 0s</div>
   </div>
-  <script src="main.js"></script>
+  <script src="/src/components/main.js"></script>
 </body>
 </html>
 
