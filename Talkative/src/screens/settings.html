@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Settings</title>
-  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="../styles/preset.css">
 </head>
 
 
@@ -20,4 +20,66 @@
   
   <h2>Settings</h2>
   <p>Test your microphone. Adjust the wall speed using the slider. Your loudness will be shown live.</p>
+<div class="mic-tester">
+    <h3>Microphone Tester</h3>
+    <label for="micSelect">Choose mic:</label>
+    <select id="micSelect"></select>
+    <progress id="volumeMeter" max="1" value="0"></progress>
+  </div>
+
+  <script>
+    let audioContext, analyser, dataArray, source;
+
+    async function getMicDevices() {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const mics = devices.filter(device => device.kind === 'audioinput');
+      const select = document.getElementById('micSelect');
+      mics.forEach(mic => {
+        const option = document.createElement('option');
+        option.value = mic.deviceId;
+        option.text = mic.label || `Mic ${select.length + 1}`;
+        select.appendChild(option);
+      });
+      if (mics.length) startStream(mics[0].deviceId);
+    }
+
+    async function startStream(deviceId) {
+      if (source) source.disconnect();
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: { deviceId } });
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 256;
+      dataArray = new Uint8Array(analyser.fftSize);
+      source = audioContext.createMediaStreamSource(stream);
+      source.connect(analyser);
+      draw();
+    }
+
+    function draw() {
+      requestAnimationFrame(draw);
+      analyser.getByteTimeDomainData(dataArray);
+      let sum = 0;
+      for (let i = 0; i < dataArray.length; i++) {
+        let val = (dataArray[i] - 128) / 128;
+        sum += val * val;
+      }
+      let rms = Math.sqrt(sum / dataArray.length);
+      document.getElementById('volumeMeter').value = rms;
+      document.getElementById('volumeLabel').textContent = rms.toFixed(2);
+    }
+
+    document.getElementById('micSelect').addEventListener('change', e => {
+      startStream(e.target.value);
+    });
+
+    window.addEventListener('load', getMicDevices);
+  </script>
+
+    <div class="circle circle-sm  circle-1"></div>
+    <div class="circle circle-lg  circle-2"></div>
+    <div class="circle circle-md  circle-3"></div>
+    <div class="circle circle-xsm  circle-4"></div>
+
+
+
 </body>
