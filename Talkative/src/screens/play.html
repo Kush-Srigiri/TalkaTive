@@ -1,11 +1,12 @@
+<!-- play.html -->
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Select Level</title>
-  <link rel="stylesheet" href="../styles/playstyles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../styles/playstyles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
 <body class="level-screen">
@@ -13,62 +14,50 @@
   <!-- Navigation -->
   <nav class="navbar">
     <ul>
-      <li><a href="home.html">Home</a></li>
-      <li><a href="play.html">Play</a></li>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="play.html" class="active">Play</a></li>
       <li><a href="gameplay.html">Gameplay</a></li>
       <li><a href="settings.html">Settings</a></li>
       <li><a href="privacy.html">Privacy</a></li>
     </ul>
   </nav>
 
-  <!-- Level Selection -->
-  <div class="levels">
-    <div class="circle unlocked">Colors</div>
-    <div class="circle locked">
-      Animals
-      <img src="../assets/icons/lock.png" alt="locked">
-    </div>
-    <div class="circle locked">
-      Food
-      <img src="../assets/icons/lock.png" alt="locked">
-    </div>
-  </div>
+  <!-- Level Selector -->
+  <section class="level-selection">
+    <div class="cards">
 
-  <!-- Profile Cards Section -->
-  <section class="container">
-    <div class="card">
-      <div class="content">
-        <div class="imgBx">
-          <img src="https://picsum.photos/id/41/200/300" alt="Profile Image">
+      <!-- Colors – freigeschaltet -->
+      <div class="card">
+        <div class="img-wrapper">
+          <img src="https://picsum.photos/seed/colors/400" alt="Colors">
         </div>
-        <div class="contentBx">
-          <h3>Someone Famous<br><span>Creative Designer</span></h3>
-        </div>
-        <ul class="sci">
-            <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#" title="Instagram"><i class="fa fa-instagram"></i></a></li>
-        </ul>
+        <h2 class="title">Colors</h2>
+        <p class="difficulty">Easy</p>
       </div>
-    </div>
 
-    <div class="card">
-      <div class="content">
-        <div class="imgBx">
-          <img src="https://picsum.photos/id/42/200/300" alt="Profile Image">
+      <!-- Animals – gesperrt -->
+      <div class="card locked">
+        <div class="img-wrapper">
+          <img src="https://picsum.photos/seed/animals/400" alt="Animals">
         </div>
-        <div class="contentBx">
-          <h3>Someone Famous<br><span>Creative Designer</span></h3>
-        </div>
-        <ul class="sci">
-            <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#" title="Instagram"><i class="fa fa-instagram"></i></a></li>
-        </ul>
+        <h2 class="title">Animals</h2>
+        <p class="difficulty">Middle</p>
       </div>
-    </div>
 
-    <!-- Add more cards as needed -->
+      <!-- Food – gesperrt -->
+      <div class="card locked">
+        <div class="img-wrapper">
+          <img src="https://picsum.photos/seed/food/400" alt="Food">
+        </div>
+        <h2 class="title">Food</h2>
+        <p class="difficulty">Hard</p>
+      </div>
+
+    </div><!-- /cards -->
+
+    <!-- Die bunten Kreise -->
+    <div class="circle circle-tl"></div>
+    <div class="circle circle-br"></div>
   </section>
 
 </body>
