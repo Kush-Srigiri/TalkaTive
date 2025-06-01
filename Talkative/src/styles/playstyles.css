@@ -148,10 +148,8 @@ section.level-selection{
 .circle-xsm { background:linear-gradient(135deg,#c3a476 0%,#ff5722 100%); }
 .circle-sm { background:linear-gradient(135deg,#c61f75 0%,#7b0d97 100%); }
 .circle-md { background:linear-gradient(135deg,#2196f3 0%,#e91e63 100%); }
-.circle-lg{             /* schicker softer Farbverlauf */
-  background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.15) 0%,rgba(255,255,255,0) 60%),
-             linear-gradient(135deg,#ff0000 0%,#ff00ff 100%);
-}
+.circle-lg{ background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.15) 0%,rgba(255,255,255,0) 60%), linear-gradient(135deg,#ff0000 0%,#ff00ff 100%);}
+
 
 /* Einzelpositionen – einfach nach Geschmack anpassen */
 .circle-1{ top:14%;  right:18%;   }

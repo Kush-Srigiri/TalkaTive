@@ -12,8 +12,8 @@ body {
 }
 
 h2 {
-    padding-top: 220px;
-    margin-top: 110px;
+    padding-top: 90px;
+    margin-top: 90px;
     font-size: 2.4rem;
     color: #e0e0ff;
     letter-spacing: 1px;
@@ -21,7 +21,7 @@ h2 {
 
 p {
     max-width: 600px;
-    margin: 25px auto;
+    margin: 20px auto;
     font-size: 1.1rem;
     line-height: 1.6;
     color: #ccccff;
@@ -48,6 +48,68 @@ p {
     text-align: center;
 }
 
+.mic-tester {
+      position: absolute;
+      top: 56%;
+      left: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      max-width: 600px;
+      margin: 0;
+      padding: 20px;
+      padding-bottom: 50px;
+      background: #1e1e2e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .mic-tester select {
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 8px;
+        background-color: #2e2e42;
+        color: #ffffff;
+        border: none;
+        outline: none;
+        margin-bottom: 15px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mic-tester progress {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        width: 100%;
+        height: 25px;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 15px;
+    }
+
+    .mic-tester progress::-webkit-progress-bar {
+        background: #444;
+    }
+
+    .mic-tester progress::-webkit-progress-value {
+        background: linear-gradient(to right, #00ff00, #ffff00, #ff0000);
+    }
+
+    .volume-label {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        font-weight: bold;
+        text-align: center;
+        display: block;
+    }
+
+
     /* ---------- Kreise ---------- */
 .circle{
   position:absolute;
@@ -55,7 +117,7 @@ p {
   pointer-events:none;
   transition:opacity .4s ease;
   z-index:0;
-  opacity:.75;
+  opacity:.75;                
 }
 
 .circle-xsm{ width:100px; height:100px;}
@@ -76,7 +138,6 @@ p {
 .circle-3{ top:2%; left:20%;}
 .circle-4{ bottom:265px; right:83%; }
 
-
 .cards:hover ~ .circle{
-  opacity:.25;
+  opacity:.25;                  
 }
