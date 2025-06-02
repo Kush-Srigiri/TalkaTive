@@ -81,6 +81,7 @@ section.level-selection{
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter:blur(8px); 
 }
+
 .card:hover{
   opacity:1;
   transform:translateY(-12px) scale(1.06);
@@ -125,31 +126,39 @@ section.level-selection{
 .title{margin:.2rem 0 0;font-size:1.3rem;font-weight:600;}
 .difficulty{margin:.3rem 0 0;font-size:.9rem;letter-spacing:.5px;opacity:.75;}
 
-/* --- Bunte Kreise --- */
+/* ---------- Kreise ---------- */
 .circle{
   position:absolute;
-  width:280px;
-  height:280px;
   border-radius:50%;
-  pointer-events:none;          /* Maus klickt da nicht drauf */
+  pointer-events:none;
   transition:opacity .4s ease;
-  z-index:0;                    /* hinter den Karten */
+  z-index:0;
+  opacity:.75;                 /* Standard: leicht sichtbar */
 }
 
+/* Größenvarianten */
+.circle-xsm{ width:100px; height:100px;}
+.circle-sm{ width:160px; height:160px; }
+.circle-md{ width:260px; height:260px; }
+.circle-lg{ width:380px; height:380px; }
 
-.circle-tl{
-  top: 70px; left:55px;
-  background:linear-gradient(135deg,#ff0000 0%,#ff00ff 100%);
+
+/* Grund-Gradients (du kannst bei Bedarf pro-Bubble overriden) */
+
+.circle-xsm { background:linear-gradient(135deg,#c3a476 0%,#ff5722 100%); }
+.circle-sm { background:linear-gradient(135deg,#c61f75 0%,#7b0d97 100%); }
+.circle-md { background:linear-gradient(135deg,#2196f3 0%,#e91e63 100%); }
+.circle-lg{ background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.15) 0%,rgba(255,255,255,0) 60%), linear-gradient(135deg,#ff0000 0%,#ff00ff 100%);}
+
+
+/* Einzelpositionen – einfach nach Geschmack anpassen */
+.circle-1{ top:14%;  right:18%;   }
+.circle-2{ bottom:55px;  left:45%; }
+.circle-3{ top:14%;   left:30%;  transform:translateX(-50%); }
+.circle-4{ bottom:265px;  right:65%; }
+
+/* Hover-Effekt – nur abdunkeln statt verschwinden */
+.cards:hover ~ .circle{
+  opacity:.25;                  /* nicht weg – nur dezenter */
 }
 
-/* Bottom-Right (blau → pink) */
-.circle-br{
-  bottom:200px;right:75px;
-  background:linear-gradient(135deg,#2196f3 0%,#e91e63 100%);
-}
-
-/* Wenn irgendeine Karte gehovered wird, Kreise ausblenden */
-.cards:hover + .circle,
-.cards:hover + .circle + .circle{
-  opacity:0;
-}

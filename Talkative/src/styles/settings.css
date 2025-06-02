@@ -1,0 +1,143 @@
+/* preset.css */
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(to bottom, #171729, #131345);
+    color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+h2 {
+    padding-top: 90px;
+    margin-top: 90px;
+    font-size: 2.4rem;
+    color: #e0e0ff;
+    letter-spacing: 1px;
+}
+
+p {
+    max-width: 600px;
+    margin: 20px auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ccccff;
+    text-align: center;
+}
+
+.navbar{
+  position:fixed;
+  bottom:0;right:0;
+  background:linear-gradient(to bottom,#aa7502,#ce7c17);
+  padding:20px 30px;
+  border-top-left-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  z-index:200;
+}
+.navbar ul{margin:0;padding:0;display:flex;gap:18px;list-style:none;}
+.navbar a{color:#fff;text-decoration:none;font-weight:bold;}
+.navbar a:hover{text-decoration:underline;}
+
+.h3 {
+    font-size: 1.8rem;
+    color: #d0d0ff;
+    align-items: center;
+    text-align: center;
+}
+
+.mic-tester {
+      position: absolute;
+      top: 56%;
+      left: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      max-width: 600px;
+      margin: 0;
+      padding: 20px;
+      padding-bottom: 50px;
+      background: #1e1e2e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .mic-tester select {
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 8px;
+        background-color: #2e2e42;
+        color: #ffffff;
+        border: none;
+        outline: none;
+        margin-bottom: 15px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mic-tester progress {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        width: 100%;
+        height: 25px;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-top: 15px;
+    }
+
+    .mic-tester progress::-webkit-progress-bar {
+        background: #444;
+    }
+
+    .mic-tester progress::-webkit-progress-value {
+        background: linear-gradient(to right, #00ff00, #ffff00, #ff0000);
+    }
+
+    .volume-label {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        font-weight: bold;
+        text-align: center;
+        display: block;
+    }
+
+
+    /* ---------- Kreise ---------- */
+.circle{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  transition:opacity .4s ease;
+  z-index:0;
+  opacity:.75;                
+}
+
+.circle-xsm{ width:100px; height:100px;}
+.circle-sm{ width:160px; height:160px; }
+.circle-md{ width:260px; height:260px; }
+.circle-lg{ width:380px; height:380px; }
+
+
+
+.circle-xsm { background:linear-gradient(135deg,#c3a476 0%,#ff5722 100%); }
+.circle-sm { background:linear-gradient(135deg,#c61f75 0%,#7b0d97 100%); }
+.circle-md { background:linear-gradient(135deg,#2196f3 0%,#e91e63 100%); }
+.circle-lg{ background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.15) 0%,rgba(255,255,255,0) 60%), linear-gradient(135deg,#ff0000 0%,#ff00ff 100%);}
+
+
+.circle-1{ top:20%; right:18%;   }
+.circle-2{ bottom:45px; left:85%; }
+.circle-3{ top:2%; left:20%;}
+.circle-4{ bottom:265px; right:83%; }
+
+.cards:hover ~ .circle{
+  opacity:.25;                  
+}
