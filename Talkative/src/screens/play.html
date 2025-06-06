@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../styles/playstyles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../assets/icons/icon.svg" />
+
 </head>
 
 <body class="level-screen">
@@ -27,7 +29,7 @@
     <div class="cards">
 
       <!-- Colors – freigeschaltet -->
-      <button class="card" onclick="window.location.href='../gamespace/game.html'">
+      <button class="card" onclick="window.location.href='../gamespace/game.html?level=Colors'">
         <div class="img-wrapper">
           <img src="../../assets/icons/color-icon.png" alt="Colors">
         </div>
@@ -36,7 +38,7 @@
       </button>
 
       <!-- Animals – gesperrt -->
-      <button class="card locked" disabled>
+      <button class="card" onclick="window.location.href='../gamespace/game.html?level=Animals'">
         <div class="img-wrapper">
           <img src="../../assets/icons/animal-icon.png" alt="Animals">
         </div>
@@ -45,7 +47,7 @@
       </button>
 
       <!-- Food – gesperrt -->
-      <button class="card locked" disabled>
+      <button class="card" onclick="window.location.href='../gamespace/game.html?level=Food'">
         <div class="img-wrapper">
           <img src="../../assets/icons/food-icon.png" alt="Food">
         </div>
