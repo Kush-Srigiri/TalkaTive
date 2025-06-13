@@ -26,10 +26,14 @@
     <h3>Choose Microphone</h3>
     <label for="micSelect">ㅤ</label>
     <select id="micSelect"></select>
-    <progress id="volumeMeter" max="1" value="0"></progress>
+
+    <!-- 👇 NEU: Speichern-Knopf -->
+    <button id="saveMicBtn">Mikrofon speichern</button>
+
+    <progress id="volumeMeter" max="1" value="1"></progress>
   </div>
 
- <script>
+<script>
   let audioContext, analyser, dataArray, source;
 
   async function getMicDevices() {
@@ -42,7 +46,18 @@
       option.text = mic.label || `Mic ${select.length + 1}`;
       select.appendChild(option);
     });
-    if (mics.length) startStream(mics[0].deviceId);
+    
+    if (mics.length) {
+      const savedMicId = localStorage.getItem("selectedMicId");
+      const foundMic = mics.find(m => m.deviceId === savedMicId);
+      if (foundMic) {
+        select.value = savedMicId;
+        startStream(savedMicId);
+      } else {
+        startStream(mics[0].deviceId);
+      }
+    }
+
   }
 
   async function startStream(deviceId) {
@@ -71,7 +86,7 @@
     let boosted = Math.min(rms * 2.5, 1);
 
     document.getElementById('volumeMeter').value = boosted;
-    document.getElementById('volumeLabel').textContent = boosted.toFixed(2);
+    
   }
 
   document.getElementById('micSelect').addEventListener('change', e => {
@@ -79,6 +94,14 @@
   });
 
   window.addEventListener('load', getMicDevices);
+
+  // Mikrofon speichern 
+  document.getElementById("saveMicBtn").addEventListener("click", () => {
+    const selectedMicId = document.getElementById("micSelect").value;
+    localStorage.setItem("selectedMicId", selectedMicId);
+    alert("🎤 Mikrofon gespeichert!");
+  });
+
 </script>
 
 

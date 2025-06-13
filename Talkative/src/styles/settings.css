@@ -108,7 +108,23 @@ p {
         text-align: center;
         display: block;
     }
+    /* Mikrofon speichern Knopf */
+#saveMicBtn {
+  background-color: transparent;
+  color: #d0c0ff;
+  border: 2px solid #5a3d91;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+#saveMicBtn:hover {
+  background-color: #5a3d91;
+  color: white;
+}
 
     /* ---------- Kreise ---------- */
 .circle{
