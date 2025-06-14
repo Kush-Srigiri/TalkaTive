@@ -64,20 +64,24 @@ p {
     }
 
     .mic-tester select {
-        padding: 10px;
-        font-size: 1rem;
-        border-radius: 8px;
-        background-color: #2e2e42;
-        color: #ffffff;
-        border: none;
-        outline: none;
-        margin-bottom: 15px;
-        cursor: pointer;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+      width: 100%; /* <-- Füllt die Breite der Box */
+      max-width: 100%; /* <-- Verhindert Überschreiten */
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      background-color: #2e2e42;
+      color: #ffffff;
+      border: none;
+      outline: none;
+      margin-bottom: 15px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      display: block;
+      white-space: nowrap;     /* kein Umbruch */
+      overflow: hidden;         /* überlaufender Text wird versteckt */
+      text-overflow: ellipsis; /* zeigt ... an, wenn zu lang */
     }
+
 
     .mic-tester progress {
         display: block;
