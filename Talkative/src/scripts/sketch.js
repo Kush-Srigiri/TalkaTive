@@ -1,25 +1,20 @@
+let speechRec;
+
 function setup() {
   noCanvas(); // Kein Zeichenbereich nötig
-  setupSpeech(); // Sprachsystem initialisieren
 
-  // Wenn Start-Button geklickt wird:
-  const startBtn = select('#start-btn');
-  startBtn.mousePressed(startGame);
+  speechRec = new p5.SpeechRec('en-US', gotSpeech); // Callback
+  speechRec.continuous = true;
+  speechRec.interimResults = false;
 
-  // Optional: Gamemode-Buttons verarbeiten (Colors, Animals, etc.)
+  speechRec.onResult = function () {
+    const userSaid = speechRec.resultString.toLowerCase().trim();
+    console.log("Gesagt:", userSaid);
+  };
+
+  speechRec.start(); // Mikrofon starten
 }
 
-function startGame() {
-  if (isListening) return;
-
-  // Zufälliges Wort auswählen und sprechen
-  const randomIndex = floor(random(wordList.length));
-  const randomWord = wordList[randomIndex];
-
-  speakWord(randomWord);
-
-  // Warte kurz, bevor das Mikro startet
-  setTimeout(() => {
-    startListening();
-  }, 1500); // 1,5 Sekunden warten, damit das Wort erst gesprochen wird
+function gotSpeech() {
+  // Wird von p5 intern verwendet
 }

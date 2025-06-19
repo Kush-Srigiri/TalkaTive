@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TalkaTive</title>
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../assets/icons/icon.svg" />
-
+  <!-- Sprachbibliotheken -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/IDMNYU/p5.js-speech@master/lib/p5.speech.js"></script>
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../assets/icons/icon.svg" />
   <style>
     /* ---------- global reset ---------- */
     *{margin:0;padding:0;box-sizing:border-box}
@@ -61,6 +63,9 @@
   </style>
 </head>
 <body>
+  <!-- Sprechbox -->
+  <div id="speech-box" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:white;border:2px solid black;padding:10px 20px;font-size:1.2em;font-family:sans-serif;z-index:1000">Say something...</div>
+
   <!-- decorative circles -->
   <div class="circle circle-xsm circle-1"></div>
   <div class="circle circle-sm  circle-2"></div>
@@ -93,52 +98,155 @@
   </div>
 
 <script>
-  /* ---------------- Level Setup ---------------- */
-  const levelImages={
-    Colors:['black.png','blue.png','brown.png','green.png','orange.png','pink.png','purple.png','red.png','white.png','yellow.png'],
-    Animals:['bear.png','cat.png','cow.png','dog.png','elephant.png','giraffe.png','horse.png','kangaroo.png','lion.png','monkey.png','panda.png','penguin.png','shark.png','tiger.png','zebra.png'],
-    Food:['apple.png','aubergine.png','banana.png','blueberries.png','burger.png','carrot.png','chicken.png','chocolate.png','donut.png','fish.png','hotdog.png','onion.png','papaya.png','peach.png','pineapple.png','pizza.png','strawberry.png','sushi.png','tacos.png','tomatoe.png']
+  const levelImages = {
+    Colors: ['black.png','blue.png','brown.png','green.png','orange.png','pink.png','purple.png','red.png','white.png','yellow.png'],
+    Animals: ['bear.png','cat.png','cow.png','dog.png','elephant.png','giraffe.png','horse.png','kangaroo.png','lion.png','monkey.png','panda.png','penguin.png','shark.png','tiger.png','zebra.png'],
+    Food: ['apple.png','aubergine.png','banana.png','blueberries.png','burger.png','carrot.png','chicken.png','chocolate.png','donut.png','fish.png','hotdog.png','onion.png','papaya.png','peach.png','pineapple.png','pizza.png','strawberry.png','sushi.png','tacos.png','tomatoe.png']
   };
 
-  /* --- get level from URL, default to Colors --- */
-  const params=new URLSearchParams(window.location.search);
-  const levelName=params.get('level')||'Colors';
-  if(!levelImages[levelName]){window.location.href='../screens/play.html';}
+  const params = new URLSearchParams(window.location.search);
+  const levelName = params.get('level') || 'Colors';
+  if (!levelImages[levelName]) window.location.href = '../screens/play.html';
 
-  let images=[];      // shuffled list for this level
-  let gamePaused=true;
-  let interval;
+  let images = [];
+  let currentImage = null;
+  let currentWrapper = null;
+  let gamePaused = true;
 
-  const startOverlay=document.getElementById('startOverlay');
-  const pauseOverlay=document.getElementById('pauseOverlay');
-  const winOverlay=document.getElementById('winOverlay');
-  const gameArea=document.getElementById('gameArea');
+  const startOverlay = document.getElementById('startOverlay');
+  const pauseOverlay = document.getElementById('pauseOverlay');
+  const winOverlay = document.getElementById('winOverlay');
+  const gameArea = document.getElementById('gameArea');
+  const speechBox = document.getElementById('speech-box');
 
-  startOverlay.addEventListener('click',()=>{startOverlay.style.display='none';gamePaused=false;startLevel();});
+  let bouncing = false;
+  let direction = 'left'; // Start: fahre nach links
+  let bounceInterval = null;
 
-  function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+  function startBounceAnimation(wrapper) {
+    bouncing = true;
+    direction = 'left';
 
-  function startLevel(){images=shuffle([...levelImages[levelName]]);showNextWall();}
+    bounceInterval = setInterval(() => {
+      if (!bouncing || !wrapper) return;
 
-  function showNextWall(){
-    if(gamePaused)return;
-    if(images.length===0){winOverlay.style.display='flex';return;}
-    const imgName=images.shift();
-    const wrapper=document.createElement('div');
-    wrapper.className='wall';
-    const obj=document.createElement('img');
-    obj.src=`../../public/images/${levelName}/${imgName}`;
-    obj.alt=imgName;
-    wrapper.appendChild(obj);
-    gameArea.appendChild(wrapper);
-    requestAnimationFrame(()=>wrapper.style.left='0');
-    interval=setTimeout(()=>{gameArea.removeChild(wrapper);if(!gamePaused)showNextWall();},5000);
+      if (direction === 'left') {
+        wrapper.style.left = '0%'; // fahre nach links
+        direction = 'center';
+      } else {
+        wrapper.style.left = '50%'; // springe zurück in die Mitte
+        direction = 'left';
+      }
+    }, 1250); // alle 1250ms wechseln
   }
 
-  /* ------- controls ------- */
-  function pauseGame(){if(gamePaused)return;gamePaused=true;clearTimeout(interval);pauseOverlay.style.display='flex';}
-  function resumeGame(){pauseOverlay.style.display='none';gamePaused=false;showNextWall();}
-  function exitGame(){window.location.href='../screens/play.html';}
+  function stopBounceAnimation() {
+    bouncing = false;
+    clearInterval(bounceInterval);
+    bounceInterval = null;
+  }
+
+
+
+  startOverlay.addEventListener('click', () => {
+    startOverlay.style.display = 'none';
+    gamePaused = false;
+    startLevel();
+  });
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function startLevel() {
+    images = shuffle([...levelImages[levelName]]);
+    showNextWall();
+  }
+
+  function showNextWall() {
+    if (images.length === 0) {
+      winOverlay.style.display = 'flex';
+      return;
+    }
+
+    const imgName = images[0];
+    currentImage = imgName.split('.')[0];
+
+    if (currentWrapper) {
+      gameArea.removeChild(currentWrapper);
+      stopBounceAnimation();
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'wall';
+    wrapper.style.position = 'absolute';
+    wrapper.style.left = '100%'; // Start rechts außen
+    wrapper.style.top = '50%';
+    wrapper.style.transform = 'translateY(-50%)';
+    wrapper.style.transition = 'left 1.5s ease';
+
+    const obj = document.createElement('img');
+    obj.src = `/images/${levelName}/${imgName}`;
+    obj.alt = imgName;
+    wrapper.appendChild(obj);
+    gameArea.appendChild(wrapper);
+
+    currentWrapper = wrapper;
+
+    // kurz warten, dann erste Bewegung starten
+    setTimeout(() => {
+      wrapper.style.left = '50%'; // erste Bewegung zur Mitte
+      setTimeout(() => startBounceAnimation(wrapper), 1500); // danach startet Bounce-Loop
+    }, 100);
+  }
+
+
+
+
+  function checkMatch(word) {
+    if (!currentImage || !currentWrapper) return;
+
+    if (word.toLowerCase().includes(currentImage.toLowerCase())) {
+      stopBounceAnimation(); // Stoppe Loop
+      images.shift();
+      showNextWall();
+    }
+  }
+
+
+
+
+  // Spracheingabe aktivieren
+  const speechRec = new p5.SpeechRec('en-US', (result) => {
+    if (result && result.results && result.results[0].length > 0) {
+      const said = result.results[0][0].transcript;
+      speechBox.textContent = said;
+      checkMatch(said);
+    }
+  });
+  speechRec.continuous = true;
+  speechRec.interimResults = false;
+  speechRec.start();
+
+  function pauseGame() {
+    if (gamePaused) return;
+    gamePaused = true;
+    pauseOverlay.style.display = 'flex';
+  }
+
+  function resumeGame() {
+    pauseOverlay.style.display = 'none';
+    gamePaused = false;
+    showNextWall();
+  }
+
+  function exitGame() {
+    window.location.href = '../screens/play.html';
+  }
 </script>
 </body>
 </html>
