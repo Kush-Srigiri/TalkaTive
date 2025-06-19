@@ -224,13 +224,16 @@
   const speechRec = new p5.SpeechRec('en-US', (result) => {
     if (result && result.results && result.results[0].length > 0) {
       const said = result.results[0][0].transcript;
+      console.log('Heard:', said);
       speechBox.textContent = said;
-      checkMatch(said);
+      checkMatch(said); // 🧠 Verbindung zum Spiel!
     }
   });
-  speechRec.continuous = true;
-  speechRec.interimResults = false;
-  speechRec.start();
+
+  speechRec.continuous = true;       // Dauerhaft zuhören
+  speechRec.interimResults = false;  // Nur endgültige Ergebnisse
+  speechRec.start();                 // Start!
+
 
   function pauseGame() {
     if (gamePaused) return;
@@ -246,7 +249,10 @@
 
   function exitGame() {
     window.location.href = '../screens/play.html';
-  }
+  }                // Start!
+
+
+
 </script>
 </body>
 </html>
