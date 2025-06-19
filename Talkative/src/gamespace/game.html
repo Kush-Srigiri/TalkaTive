@@ -218,11 +218,25 @@
 
     currentWrapper = wrapper;
 
-    // kurz warten, dann erste Bewegung starten
     setTimeout(() => {
-      wrapper.style.left = '50%'; // erste Bewegung zur Mitte
-      setTimeout(() => startBounceAnimation(wrapper), 1500); // danach startet Bounce-Loop
+      // 1. Schritt: Sanfte Vorwärtsfahrt von rechts → ganz nach links
+      wrapper.style.transition = 'left 2.5s ease-out';
+      wrapper.style.left = '0%';
     }, 100);
+
+    setTimeout(() => {
+      // 2. Schritt: Schneller Rücksprung zur Mitte
+      wrapper.style.transition = 'left 1.25s ease-in';
+      wrapper.style.left = '50%';
+    }, 2700); // 100ms + 2600ms
+
+    setTimeout(() => {
+      // 3. Schritt: Starte Bounce zwischen Mitte und links
+      wrapper.style.transition = 'left 1.25s ease-in-out';
+      startBounceAnimation(wrapper);
+    }, 3400); // Rücksprung + kleiner Puffer
+
+
   }
 
 
