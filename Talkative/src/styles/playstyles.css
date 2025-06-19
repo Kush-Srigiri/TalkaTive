@@ -7,27 +7,24 @@ body{
   align-items:center;
   background:linear-gradient(to bottom,#171729,#131345);
   font-family:Arial,Helvetica,sans-serif;
-  color:#eaeaea;           /* etwas heller, nicht mehr „fett“ wirkend */
+  color:#eaeaea;          
   font-weight:400;
 }
 
 
 body,
-body * {                 /* alle Texte sollen weich überblenden */
+body * {                 
   color:#eaeaea;
   transition:color .3s ease;
 }
 
-/* Maus drüber → schwarz */
 body:hover {
   color:#000;
 }
-body:hover * {           /* alles erbt die neue Farbe */
+body:hover * {
   color:inherit;
 }
 
-
-/* --- Navi (kleine Kosmetik) --- */
 .navbar{
   position:fixed;
   bottom:0;right:0;
@@ -41,7 +38,6 @@ body:hover * {           /* alles erbt die neue Farbe */
 .navbar a{color:#fff;text-decoration:none;font-weight:bold;}
 .navbar a:hover{text-decoration:underline;}
 
-/* --- Level-Section --- */
 section.level-selection{
   min-height:100vh;
   display:flex;
@@ -50,24 +46,23 @@ section.level-selection{
   padding:0 20px 140px;
   box-sizing:border-box;
   position:relative;
-  overflow:hidden;      /* Kreise bleiben im Viewport */
+  overflow:hidden;      
 }
 
-/* Cards-Container */
 .cards{
   display:flex;
   gap:2rem;
   flex-wrap:wrap;
   justify-content:center;
   position:relative;
-  z-index:2;            /* über den Kreisen */
+  z-index:2;
 }
 
 .card{
   width:220px;
-  height:320px;         /* mehr Höhe = vertical look */
+  height:320px;
   background:#24222d;
-  border-radius:12px;   /* weniger rund */
+  border-radius:12px;   
   box-shadow:0 6px 16px rgba(0,0,0,.25);
   padding:2rem 1.2rem 1.5rem;
   text-align:center;
@@ -93,7 +88,7 @@ section.level-selection{
   border-radius:50%;
   overflow:hidden;
   position:relative;
-  border:4px solid #231f38;   /* neuer Border */
+  border:4px solid #231f38;
 }
 .img-wrapper img{
   width:100%;
@@ -102,7 +97,7 @@ section.level-selection{
   display:block;
 }
 
-/* Lock-Icon */
+
 .card.locked .img-wrapper::after{
   content:"\f023";
   font-family:"FontAwesome";
@@ -118,29 +113,26 @@ section.level-selection{
 }
 
 
-
-/* Texte */
 .title{margin:.2rem 0 0;font-size:1.3rem;font-weight:600;}
 .difficulty{margin:.3rem 0 0;font-size:.9rem;letter-spacing:.5px;opacity:.75;}
 
-/* ---------- Kreise ---------- */
 .circle{
   position:absolute;
   border-radius:50%;
   pointer-events:none;
   transition:opacity .4s ease;
   z-index:0;
-  opacity:.75;                 /* Standard: leicht sichtbar */
+  opacity:.75;                 
 }
 
-/* Größenvarianten */
+
 .circle-xsm{ width:100px; height:100px;}
 .circle-sm{ width:160px; height:160px; }
 .circle-md{ width:260px; height:260px; }
 .circle-lg{ width:380px; height:380px; }
 
 
-/* Grund-Gradients (du kannst bei Bedarf pro-Bubble overriden) */
+
 
 .circle-xsm { background:linear-gradient(135deg,#c3a476 0%,#ff5722 100%); }
 .circle-sm { background:linear-gradient(135deg,#c61f75 0%,#7b0d97 100%); }
@@ -148,13 +140,13 @@ section.level-selection{
 .circle-lg{ background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.15) 0%,rgba(255,255,255,0) 60%), linear-gradient(135deg,#ff0000 0%,#ff00ff 100%);}
 
 
-/* Einzelpositionen – einfach nach Geschmack anpassen */
+
 .circle-1{ top:14%;  right:18%;   }
 .circle-2{ bottom:55px;  left:45%; }
 .circle-3{ top:14%;   left:30%;  transform:translateX(-50%); }
 .circle-4{ bottom:265px;  right:65%; }
 
-/* Hover-Effekt – nur abdunkeln statt verschwinden */
+
 .cards:hover ~ .circle{
   opacity:.25;                  
 }

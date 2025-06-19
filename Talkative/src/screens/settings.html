@@ -6,9 +6,6 @@
 
 </head>
 
-
-
-
 <body>
   <nav class="navbar">
     <ul>
@@ -27,7 +24,6 @@
     <label for="micSelect">ㅤ</label>
     <select id="micSelect"></select>
 
-    <!-- Speichern-Knopf -->
     <button id="saveMicBtn">Mikrofon speichern</button>
 
     <progress id="volumeMeter" max="1" value="1"></progress>
@@ -95,11 +91,10 @@
 
   window.addEventListener('load', getMicDevices);
 
-  // Mikrofon speichern 
   document.getElementById("saveMicBtn").addEventListener("click", () => {
     const selectedMicId = document.getElementById("micSelect").value;
     localStorage.setItem("selectedMicId", selectedMicId);
-    alert("🎤 Mikrofon gespeichert!");
+    alert("Mikrofon gespeichert!");
   });
 
 </script>

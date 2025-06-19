@@ -10,21 +10,29 @@ body {
     justify-content: flex-start;
 }
 
+h1 {
+  padding-top: 220px;
+  margin-top: 40px;
+  font-size: 2.4rem;
+  color: #e0e0ff;
+  letter-spacing: 1px;
+}
+
 h2 {
-    padding-top: 220px;
-    margin-top: 110px;
-    font-size: 2.4rem;
-    color: #e0e0ff;
-    letter-spacing: 1px;
+  padding-top: 220px;
+  margin-top: 110px;
+  font-size: 2.4rem;
+  color: #e0e0ff;
+  letter-spacing: 1px;
 }
 
 p {
-    max-width: 600px;
-    margin: 25px auto;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #ccccff;
-    text-align: center;
+  max-width: 600px;
+  margin: 25px auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ccccff;
+  text-align: center;
 }
 
 .navbar{
@@ -41,13 +49,12 @@ p {
 .navbar a:hover{text-decoration:underline;}
 
 .h3 {
-    font-size: 1.8rem;
-    color: #d0d0ff;
-    align-items: center;
-    text-align: center;
+  font-size: 1.8rem;
+  color: #d0d0ff;
+  align-items: center;
+  text-align: center;
 }
-
-    /* ---------- Kreise ---------- */
+ 
 .circle{
   position:absolute;
   border-radius:50%;

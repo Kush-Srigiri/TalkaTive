@@ -4,15 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TalkaTive</title>
-  <!-- Sprachbibliotheken -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/IDMNYU/p5.js-speech@master/lib/p5.speech.js"></script>
   <link rel="icon" type="image/svg+xml" sizes="32x32" href="../../assets/icons/icon.svg" />
   <style>
-    /* ---------- global reset ---------- */
     *{margin:0;padding:0;box-sizing:border-box}
 
-    /* ---------- PRESET (fancy bg + circles + nav) ---------- */
     body{
       min-height:100vh;font-family:'Segoe UI',Arial,sans-serif;
       background:linear-gradient(to bottom,#171729,#131345);
@@ -23,7 +21,6 @@
 
     p{max-width:600px;margin:25px auto;font-size:1.1rem;line-height:1.6;color:#ccccff;text-align:center}
 
-    /* circles for visual spice */
     .circle{position:absolute;border-radius:50%;pointer-events:none;opacity:.75;z-index:0}
     .circle-xsm{width:100px;height:100px;background:linear-gradient(135deg,#c3a476 0%,#ff5722 100%)}
     .circle-sm{width:160px;height:160px;background:linear-gradient(135deg,#c61f75 0%,#7b0d97 100%)}
@@ -34,89 +31,71 @@
     .circle-3{top:2%;left:20%}
     .circle-4{bottom:125px;right:81%}
 
-    /* ---------- Game specific ---------- */
     #startOverlay{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.7);color:#fff;z-index:20;cursor:pointer}
     #startOverlay p{font-size:2rem;letter-spacing:.5px;text-align:center}
 
     .game-area{position:relative;width:100%;height:100%;overflow:hidden;flex:1}
 
-    /* moving object wrapper */
     .wall{position:absolute;top:50%;left:100%;transform:translateY(-50%);transition:left 5s linear;display:flex;align-items:center}
     .wall img{height:150px}
 
-    /* static icon on left */
     #playerIcon{position:absolute;left:20px;top:50%;transform:translateY(-50%);height:160px;z-index:5}
 
-    /* Pause button */
     .pause-btn{position:absolute;top:20px;left:20px;font-size:1rem;padding:.6em 1.2em;border:none;border-radius:20em;font-weight:500;color:#fff;cursor:pointer;background:linear-gradient(0deg,rgba(77,54,208,1) 0%,rgba(132,116,254,1) 100%);box-shadow:0 0.7em 1.5em -0.5em #4d36d0be}
 
-    /* overlay base */
     .overlay{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.8);color:#fff;z-index:15;text-align:center}
 
-    /* Pause overlay buttons */
     .btn-row{display:flex;gap:20px;justify-content:center;align-items:center;margin-top:30px}
     .continue-btn,.exit-btn{width:120px;height:45px;font-size:1.1rem;border:none;border-radius:8px;cursor:pointer;transition:.3s}
     .continue-btn{background:#e6fbe8;color:#22c55e}
     .continue-btn:hover{background:#22c55e;color:#fff;box-shadow:0 0 0 5px #22c55e5f}
     .exit-btn{background:#fbeaea;color:#ef4444}
     .exit-btn:hover{background:#ef4444;color:#fff;box-shadow:0 0 0 5px #ef44445f}
+
+    #speech-box{
+      position:fixed;
+      bottom:10px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#4d36d0;
+      padding:10px 25px;
+      border-radius:999px;
+      color:#fff;
+      font-size:1.1rem;
+      z-index:1000;
+      box-shadow:0 0 15px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
-  <!-- Sprechbox -->
-  <div id="speech-box" style="
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #c61f75, #7b0d97);
-    border: 2px solid #c61f75;
-    padding: 12px 24px;
-    font-size: 1.2em;
-    font-family: 'Segoe UI', sans-serif;
-    z-index: 1000;
-    color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(198, 31, 117, 0.4);">
-    Say something...
+
+<div class="circle circle-xsm circle-1"></div>
+<div class="circle circle-sm  circle-2"></div>
+<div class="circle circle-md circle-3"></div>
+<div class="circle circle-lg circle-4"></div>
+
+<div id="startOverlay"><p>Tap anywhere to start</p></div>
+
+<div class="game-area" id="gameArea">
+  <img id="playerIcon" src="../../assets/icons/character.svg" alt="Icon" />
+  <button class="pause-btn" onclick="pauseGame()">Pause</button>
+</div>
+
+<div class="overlay" id="pauseOverlay">
+  <h3>Game Paused</h3>
+  <div class="btn-row">
+    <button class="continue-btn" onclick="resumeGame()">Continue</button>
+    <button class="exit-btn" onclick="exitGame()">Exit</button>
   </div>
+</div>
 
+<div class="overlay" id="winOverlay">
+  <h2>🎉 Congratulations!</h2>
+  <p>Well done! Level completed.</p>
+  <button class="continue-btn" onclick="window.location.href='../screens/play.html'">Back to Menu</button>
+</div>
 
-
-
-
-
-
-  <!-- decorative circles -->
-  <div class="circle circle-xsm circle-1"></div>
-  <div class="circle circle-sm  circle-2"></div>
-  <div class="circle circle-md circle-3"></div>
-  <div class="circle circle-lg circle-4"></div>
-
-  <!-- Start-Overlay -->
-  <div id="startOverlay"><p>Tap anywhere to start</p></div>
-
-  <!-- Game-Area -->
-  <div class="game-area" id="gameArea">
-    <img id="playerIcon" src="../../assets/icons/character.svg" alt="Icon" />
-    <button class="pause-btn" onclick="pauseGame()">Pause</button>
-  </div>
-
-  <!-- Pause-Overlay -->
-  <div class="overlay" id="pauseOverlay">
-    <h3>Game Paused</h3>
-    <div class="btn-row">
-      <button class="continue-btn" onclick="resumeGame()">Continue</button>
-      <button class="exit-btn" onclick="exitGame()">Exit</button>
-    </div>
-  </div>
-
-  <!-- Win-Overlay -->
-  <div class="overlay" id="winOverlay">
-    <h2>🎉 Congratulations!</h2>
-    <p>Well done! Level completed.</p>
-    <button class="continue-btn" onclick="window.location.href='../screens/play.html'">Back to Menu</button>
-  </div>
+<div id="speech-box">Say something...</div>
 
 <script>
   const levelImages = {
@@ -141,7 +120,7 @@
   const speechBox = document.getElementById('speech-box');
 
   let bouncing = false;
-  let direction = 'left'; // Start: fahre nach links
+  let direction = 'left'; 
   let bounceInterval = null;
 
   function startBounceAnimation(wrapper) {
@@ -152,13 +131,13 @@
       if (!bouncing || !wrapper) return;
 
       if (direction === 'left') {
-        wrapper.style.left = '0%'; // fahre nach links
+        wrapper.style.left = '0%'; 
         direction = 'center';
       } else {
-        wrapper.style.left = '50%'; // springe zurück in die Mitte
+        wrapper.style.left = '40%';
         direction = 'left';
       }
-    }, 1250); // alle 1250ms wechseln
+    }, 980); 
   }
 
   function stopBounceAnimation() {
@@ -166,8 +145,6 @@
     clearInterval(bounceInterval);
     bounceInterval = null;
   }
-
-
 
   startOverlay.addEventListener('click', () => {
     startOverlay.style.display = 'none';
@@ -205,7 +182,7 @@
     const wrapper = document.createElement('div');
     wrapper.className = 'wall';
     wrapper.style.position = 'absolute';
-    wrapper.style.left = '100%'; // Start rechts außen
+    wrapper.style.left = '100%'; 
     wrapper.style.top = '50%';
     wrapper.style.transform = 'translateY(-50%)';
     wrapper.style.transition = 'left 1.5s ease';
@@ -219,69 +196,54 @@
     currentWrapper = wrapper;
 
     setTimeout(() => {
-      // 1. Schritt: Sanfte Vorwärtsfahrt von rechts → ganz nach links
       wrapper.style.transition = 'left 2.5s ease-out';
       wrapper.style.left = '0%';
     }, 100);
 
     setTimeout(() => {
-      // 2. Schritt: Schneller Rücksprung zur Mitte
       wrapper.style.transition = 'left 1.25s ease-in';
       wrapper.style.left = '50%';
-    }, 2700); // 100ms + 2600ms
+    }, 2700); 
 
     setTimeout(() => {
-      // 3. Schritt: Starte Bounce zwischen Mitte und links
       wrapper.style.transition = 'left 1.25s ease-in-out';
       startBounceAnimation(wrapper);
-    }, 3400); // Rücksprung + kleiner Puffer
-
-
+    }, 3400); 
   }
-
-
-
 
   function checkMatch(word) {
     if (!currentImage || !currentWrapper) return;
 
     if (word.toLowerCase().includes(currentImage.toLowerCase())) {
-      stopBounceAnimation(); // Stoppe Loop
+      stopBounceAnimation(); 
       images.shift();
       showNextWall();
     }
   }
 
+  let speechStarted = false;
 
-let speechStarted = false;
-
-
-
-
-  // Spracheingabe aktivieren
   function startListening() {
     if (speechStarted) return;
 
     speechStarted = true;
 
     const speechRec = new p5.SpeechRec('en-US');
-      speechRec.continuous = true;
-      speechRec.interimResults = false;
+    speechRec.continuous = true;
+    speechRec.interimResults = false;
 
-      speechRec.onResult = function() {
-        if (speechRec.resultValue) {
-          const said = speechRec.resultString.trim().toLowerCase();
-          console.log("🎤 Gesagt:", said);
-          document.getElementById('speech-box').textContent = said;
-          checkMatch(said);
-        }
-      };
+    speechRec.onResult = function() {
+      if (speechRec.resultValue) {
+        const said = speechRec.resultString.trim().toLowerCase();
+        console.log("🎤 Gesagt:", said);
+        document.getElementById('speech-box').textContent = said;
+        checkMatch(said);
+      }
+    };
 
-      speechRec.start();
-
-    console.log("🎤 Spracherkennung gestartet");
-  }               // Start!
-
+    speechRec.start();
+    console.log("Spracherkennung gestartet");
+  }
 
   function pauseGame() {
     if (gamePaused) return;
@@ -298,9 +260,6 @@ let speechStarted = false;
   function exitGame() {
     window.location.href = '../screens/play.html';
   }
-
-
-
 </script>
 
 <button onclick="startListening()" style="
@@ -315,7 +274,7 @@ let speechStarted = false;
   border-radius: 10px;
   z-index: 2000;
 ">
-  ACTIVATE🎙️ 
+  ACTIVATE🎤 
 </button>
 
 </body>
