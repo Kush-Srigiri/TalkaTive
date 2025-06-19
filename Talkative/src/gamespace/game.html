@@ -101,7 +101,7 @@
   const levelImages = {
     Colors: ['black.png','blue.png','brown.png','green.png','orange.png','pink.png','purple.png','red.png','white.png','yellow.png'],
     Animals: ['bear.png','cat.png','cow.png','dog.png','elephant.png','giraffe.png','horse.png','kangaroo.png','lion.png','monkey.png','panda.png','penguin.png','shark.png','tiger.png','zebra.png'],
-    Food: ['apple.png','aubergine.png','banana.png','blueberries.png','burger.png','carrot.png','chicken.png','chocolate.png','donut.png','fish.png','hotdog.png','onion.png','papaya.png','peach.png','pineapple.png','pizza.png','strawberry.png','sushi.png','tacos.png','tomatoe.png']
+    Food: ['apple.png','aubergine.png','banana.png','blueberries.png','burger.png','carrot.png','chicken.png','chocolate.png','donut.png','fish.png','onion.png','papaya.png','peach.png','pineapple.png','pizza.png','strawberry.png','sushi.png','tacos.png','tomato.png']
   };
 
   const params = new URLSearchParams(window.location.search);
@@ -218,21 +218,34 @@
   }
 
 
+let speechStarted = false;
+
+
 
 
   // Spracheingabe aktivieren
-  const speechRec = new p5.SpeechRec('en-US', (result) => {
-    if (result && result.results && result.results[0].length > 0) {
-      const said = result.results[0][0].transcript;
-      console.log('Heard:', said);
-      speechBox.textContent = said;
-      checkMatch(said); // 🧠 Verbindung zum Spiel!
-    }
-  });
+  function startListening() {
+    if (speechStarted) return;
 
-  speechRec.continuous = true;       // Dauerhaft zuhören
-  speechRec.interimResults = false;  // Nur endgültige Ergebnisse
-  speechRec.start();                 // Start!
+    speechStarted = true;
+
+    const speechRec = new p5.SpeechRec('en-US');
+      speechRec.continuous = true;
+      speechRec.interimResults = false;
+
+      speechRec.onResult = function() {
+        if (speechRec.resultValue) {
+          const said = speechRec.resultString.trim().toLowerCase();
+          console.log("🎤 Gesagt:", said);
+          document.getElementById('speech-box').textContent = said;
+          checkMatch(said);
+        }
+      };
+
+      speechRec.start();
+
+    console.log("🎤 Spracherkennung gestartet");
+  }               // Start!
 
 
   function pauseGame() {
@@ -249,10 +262,26 @@
 
   function exitGame() {
     window.location.href = '../screens/play.html';
-  }                // Start!
+  }
 
 
 
 </script>
+
+<button onclick="startListening()" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background: #6b4eff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  z-index: 2000;
+">
+  ACTIVATE🎙️ 
+</button>
+
 </body>
 </html>

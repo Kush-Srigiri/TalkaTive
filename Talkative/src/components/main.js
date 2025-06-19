@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { startSpeechRecognition, speakWord } from './speech';
+import { startSpeechRecognition, speakWord } from '../scripts/speech.js';
+
 
 let currentWord = 'blue';
 let words = [];
@@ -22,6 +23,12 @@ const config = {
     create,
     update
   }
+};
+
+window.startListening = () => {
+  startSpeechRecognition((word) => {
+    console.log("🎤 Wort erkannt:", word);
+  });
 };
 
 function preload() {
