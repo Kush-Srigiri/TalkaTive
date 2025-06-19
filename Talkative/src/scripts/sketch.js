@@ -3,7 +3,7 @@ let speechRec;
 function setup() {
   noCanvas();
 
-  speechRec = new p5.SpeechRec('en-US', gotSpeech); // ❌ löschen
+  speechRec = new p5.SpeechRec('en-US', gotSpeech); // löschen
   speechRec.continuous = true;
   speechRec.interimResults = false;
 
@@ -12,7 +12,7 @@ function setup() {
     console.log("Gesagt:", userSaid);
   };
 
-  speechRec.start(); // ❌ löschen
+  speechRec.start(); // löschen
 }
 
 function gotSpeech() {

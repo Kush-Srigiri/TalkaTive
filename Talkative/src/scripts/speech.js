@@ -24,9 +24,9 @@ export function startSpeechRecognition(callback) {
     }
   };
 
-  speechRec.onStart = () => console.log("✅ Spracherkennung gestartet.");
-  speechRec.onEnd = () => console.log("🛑 Spracherkennung gestoppt.");
-  speechRec.onError = err => console.error("❌ Fehler bei SpeechRec:", err);
+  speechRec.onStart = () => console.log("Spracherkennung gestartet.");
+  speechRec.onEnd = () => console.log("Spracherkennung gestoppt.");
+  speechRec.onError = err => console.error("Fehler bei SpeechRec:", err);
 
   speechRec.start();
 }
