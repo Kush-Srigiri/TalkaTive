@@ -29,6 +29,9 @@
     <progress id="volumeMeter" max="1" value="1"></progress>
   </div>
 
+<div id="popup" class="popup hidden">Microphone saved!</div>
+
+
 <script>
   let audioContext, analyser, dataArray, source;
 
@@ -92,10 +95,22 @@
   window.addEventListener('load', getMicDevices);
 
   document.getElementById("saveMicBtn").addEventListener("click", () => {
-    const selectedMicId = document.getElementById("micSelect").value;
-    localStorage.setItem("selectedMicId", selectedMicId);
-    alert("Mikrofon gespeichert!");
-  });
+  const selectedMicId = document.getElementById("micSelect").value;
+  localStorage.setItem("selectedMicId", selectedMicId);
+
+  const popup = document.getElementById("popup");
+  popup.classList.remove("hidden");
+
+  const hidePopup = () => {
+    popup.classList.add("hidden");
+    document.removeEventListener("click", hidePopup);
+  };
+
+  setTimeout(() => {
+    document.addEventListener("click", hidePopup);
+  }, 100);
+});
+
 
 </script>
 
