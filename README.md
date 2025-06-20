@@ -16,9 +16,9 @@ TalkaTive is an interactive voice-controlled game where your spoken words contro
 ---
 
 ### 🎯 Gameplay
-- **Talk to move:** say the matching word or hit the requested pitch.
-- The wall opens – the avatar runs forward.
-- Three modes: **Colors · Animals · Food**.
+- **Talk to move:** say the matching word.
+- Three modes: **Colors · Animals · Food**
+- Win them all.
 
 
 ---
